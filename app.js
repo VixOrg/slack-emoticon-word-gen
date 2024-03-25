@@ -299,5 +299,5 @@ documentReady.then(() => {
     foreground.addEventListener('input', replace);
     background.addEventListener('input', replace);
 
-    replace(generate(output_text));
+    replace(generate(input_text));
 });
