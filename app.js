@@ -1,20 +1,294 @@
 import { documentReady } from 'https://unpkg.com/html-ready';
 
-const template = `:background::background::background::background::background::background::background::background::background::background::background::background::background::background::background::background::background::background::background::background:
-:background::foreground::background::background::background::foreground::foreground::foreground::foreground::background::foreground::foreground::foreground::background::foreground::background::background::background::foreground::background:
-:background::foreground::background::background::background::foreground::background::background::background::background::background::foreground::background::background::foreground::foreground::background::foreground::foreground::background:
-:background::foreground::background::background::background::foreground::background::foreground::foreground::background::background::foreground::background::background::foreground::background::foreground::background::foreground::background:
-:background::foreground::background::background::background::foreground::background::background::foreground::background::background::foreground::background::background::foreground::background::background::background::foreground::background:
-:background::foreground::foreground::foreground::background::foreground::foreground::foreground::foreground::background::background::foreground::background::background::foreground::background::background::background::foreground::background:
-:background::background::background::background::background::background::background::background::background::background::background::background::background::background::background::background::background::background::background::background:`;
+// Pixelated representation of letters
+const alphabet = {
+	' ': [   
+			"^^^^",
+			"^^^^",
+			"^^^^",
+			"^^^^",
+			"^^^^",
+			"^^^^",
+			"^^^^"
+		 ],
+	'!': [
+			"^^",
+			"^#",
+			"^#",
+			"^#",
+			"^^",
+			"^#",
+			"^^"
+		 ],
+	'.': [
+			"^^",
+			"^^",
+			"^^",
+			"^^",
+			"^^",
+			"^#",
+			"^^"
+		 ],
+	'A': [
+			"^^^^^",
+			"^^##^",
+			"^#^^#",
+			"^####",
+			"^#^^#",
+			"^#^^#",
+			"^^^^^"
+		 ],
+	'B': [
+			"^^^^^",
+			"^###^",
+			"^#^^#",
+			"^###^",
+			"^#^^#",
+			"^###^",
+			"^^^^^"
+		 ],
+	'C': [        
+			"^^^^^",
+			"^^##^",
+			"^#^^#",
+			"^#^^^",
+			"^#^^#",
+			"^^##^",
+			"^^^^^"
+		 ],
+	'D': [
+			"^^^^^",
+			"^###^",
+			"^#^^#",
+			"^#^^#",
+			"^#^^#",
+			"^###^",
+			"^^^^^"
+		 ],
+	'E': [
+			"^^^^",
+			"^###",
+			"^#^^",
+			"^##^",
+			"^#^^",
+			"^###",
+			"^^^^"
+		 ],
+	'F': [
+			"^^^^",
+			"^###",
+			"^#^^",
+			"^##^",
+			"^#^^",
+			"^#^^",
+			"^^^^"
+		 ],
+	'G': [
+			"^^^^^",
+			"^####",
+			"^#^^^",
+			"^#^##",
+			"^#^^#",
+			"^####",
+			"^^^^^"
+		 ],
+	'H': [
+			"^^^^^",
+			"^#^^#",
+			"^#^^#",
+			"^####",
+			"^#^^#",
+			"^#^^#",
+			"^^^^^"
+		 ],
+	'I': [
+			"^^^^",
+			"^###",
+			"^^#^",
+			"^^#^",
+			"^^#^",
+			"^###",
+			"^^^^"
+		 ],
+	'J': [
+			"^^^^^",
+			"^^###",
+			"^^^#^",
+			"^^^#^",
+			"^#^#^",
+			"^^#^^",
+			"^^^^^"
+		 ],
+	'K': [
+			"^^^^^",
+			"^#^^#",
+			"^#^#^",
+			"^##^^",
+			"^#^#^",
+			"^#^^#",
+			"^^^^^"
+		 ],
+	'L': [
+			"^^^^",
+			"^#^^",
+			"^#^^",
+			"^#^^",
+			"^#^^",
+			"^###",
+			"^^^^"
+		 ],
+	'M': [
+			"^^^^^^",
+			"^#^^^#",
+			"^##^##",
+			"^#^#^#",
+			"^#^^^#",
+			"^#^^^#",
+			"^^^^^^"
+		 ],
+	'N': [
+			"^^^^^",
+			"^#^^#",
+			"^##^#",
+			"^#^##",
+			"^#^^#",
+			"^#^^#",
+			"^^^^^"
+		 ],
+	'O': [
+			"^^^^^",
+			"^^##^",
+			"^#^^#",
+			"^#^^#",
+			"^#^^#",
+			"^^##^",
+			"^^^^^"
+		 ],
+	'P': [
+			"^^^^",
+			"^##^",
+			"^#^#",
+			"^##^",
+			"^#^^",
+			"^#^^",
+			"^^^^"
+		 ],
+	'Q': [
+			"^^^^^",
+			"^^##^",
+			"^#^^#",
+			"^#^^#",
+			"^#^##",
+			"^^###",
+			"^^^^^"
+		 ],
+	'R': [
+			"^^^^",
+			"^##^",
+			"^#^#",
+			"^##^",
+			"^##^",
+			"^#^#",
+			"^^^^"
+		 ],
+	'S': [
+			"^^^^^",
+			"^^##^",
+			"^#^^^",
+			"^^#^^",
+			"^^^#^",
+			"^##^^",
+			"^^^^^"
+		 ],
+	'T': [
+			"^^^^",
+			"^###",
+			"^^#^",
+			"^^#^",
+			"^^#^",
+			"^^#^",
+			"^^^^"
+		 ],
+	'U': [
+			"^^^^^",
+			"^#^^#",
+			"^#^^#",
+			"^#^^#",
+			"^#^^#",
+			"^^##^",
+			"^^^^^"
+		 ],
+	'V': [
+			"^^^^^^",
+			"^#^^^#",
+			"^#^^^#",
+			"^^#^#^",
+			"^^#^#^",
+			"^^^#^^",
+			"^^^^^^"
+		 ],
+	'W': [
+			"^^^^^^",
+			"^#^^^#",
+			"^#^^^#",
+			"^#^^^#",
+			"^#^#^#",
+			"^^#^#^",
+			"^^^^^^"
+		 ],
+	'X': [
+			"^^^^^^",
+			"^#^^^#",
+			"^^#^#^",
+			"^^^#^^",
+			"^^#^#^",
+			"^#^^^#",
+			"^^^^^^"
+		 ],
+	'Y': [
+			"^^^^^^",
+			"^#^^^#",
+			"^^#^#^",
+			"^^^#^^",
+			"^^^#^^",
+			"^^^#^^",
+			"^^^^^^"
+		 ],
+	'Z': [
+			"^^^^^^",
+			"^#####",
+			"^^^^#^",
+			"^^^#^^",
+			"^^#^^^",
+			"^#####",
+			"^^^^^^"
+		 ]
+};
+
 
 documentReady.then(() => {
+  const input_text = document.querySelector('#input_text');
   const foreground = document.querySelector('#foreground');
   const background = document.querySelector('#background');
   const output  = document.querySelector('#output');
+  
+  const generate = (in_txt) => {
+    var output_text = "";
+	for (var i = 0; i < input_text.length; i++) {
+		var letter = alphabet[input_text[i]];
+		if (!letter) {
+			letter = alphabet[' '];
+		}
+		for (var row = 0; row < 7; row++) {
+			output_text += letter[row].replace(/\n$/, "").replace(/#/g, ':'+foreground+':').replace(/\^/g, ':'+background+':');
+        }
+        output_text += "\n";
+    }
+	return output_text;
+  };
 
-  const replace = () => {
-    output.value = template
+  const replace = (txt) => {
+    output.value = txt
       .replace(/foreground/g, foreground.value)
       .replace(/background/g, background.value);
   };
@@ -22,5 +296,5 @@ documentReady.then(() => {
   foreground.addEventListener('input', replace);
   background.addEventListener('input', replace);
 
-  replace();
+  replace(generate(output_text));
 });

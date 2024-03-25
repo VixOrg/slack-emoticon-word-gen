@@ -1,0 +1,56 @@
+:root {
+  --color-text-primary: #24292e;
+  --color-text-tertiary: #6a737d;
+  --color-blockquote-border: #dfe2e5;
+}
+
+html {
+  box-sizing: border-box;
+  font-family: menlo, monospace;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  font-family: inherit;
+  font-size: 16px;
+  color: var(--color-text-primary);
+}
+
+input,
+textarea,
+button {
+  font-family: inherit;
+}
+
+textarea {
+  padding: 8px;
+}
+
+blockquote {
+  padding: 0 1em;
+  color: var(--color-text-tertiary);
+  border-left: .25em solid var(--color-blockquote-border);
+}
+
+.container {
+  margin: auto;
+  padding: 16px;
+  max-width: 960px;
+}
+
+.textarea-container {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+}
+
+.textarea-container > input,
+.textarea-container > textarea {
+  flex-grow: 1;
+}
