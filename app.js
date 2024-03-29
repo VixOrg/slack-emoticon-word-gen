@@ -10,13 +10,13 @@ const alphabet = {
         "`\n"
     ],
     ' ': [
-        "````",
-        "````",
-        "````",
-        "````",
-        "````",
-        "````",
-        "````"
+        "```",
+        "```",
+        "```",
+        "```",
+        "```",
+        "```",
+        "```"
     ],
     '!': [
         "``",
@@ -35,6 +35,123 @@ const alphabet = {
         "``",
         "`#",
         "``"
+    ],
+    ',': [
+        "```",
+        "```",
+        "```",
+        "```",
+        "```",
+        "``#",
+        "`#`"
+    ],
+    '-': [
+        "````",
+        "````",
+        "````",
+        "`###",
+        "````",
+        "````",
+        "````"
+    ],
+    '_': [
+        "`````",
+        "`````",
+        "`````",
+        "`````",
+        "`````",
+        "`####",
+        "`````"
+    ],
+    '0': [
+        "````",
+        "``#`",
+        "`#`#",
+        "`###",
+        "`#`#",
+        "``#`",
+        "````"
+    ],
+    '1': [
+        "```",
+        "``#",
+        "`##",
+        "``#",
+        "``#",
+        "``#",
+        "```"
+    ],
+    '2': [
+        "````",
+        "``#`",
+        "`#`#",
+        "```#",
+        "``#`",
+        "`###",
+        "````"
+    ],
+    '3': [
+        "````",
+        "`##`",
+        "```#",
+        "``#`",
+        "```#",
+        "`##`",
+        "````"
+    ],
+    '4': [
+        "````",
+        "`#`#",
+        "`#`#",
+        "`###",
+        "```#",
+        "```#",
+        "````"
+    ],
+    '5': [
+        "````",
+        "`###",
+        "`#``",
+        "`##`",
+        "```#",
+        "`##`",
+        "````"
+    ],
+    '6': [
+        "````",
+        "``#`",
+        "`#``",
+        "`##`",
+        "`#`#",
+        "``#`",
+        "````"
+    ],
+    '7': [
+        "````",
+        "`###",
+        "```#",
+        "``#`",
+        "``#`",
+        "``#`",
+        "````"
+    ],
+    '8': [
+        "````",
+        "``#`",
+        "`#`#",
+        "``#`",
+        "`#`#",
+        "``#`",
+        "````"
+    ],
+    '9': [
+        "````",
+        "``#`",
+        "`#`#",
+        "``##",
+        "```#",
+        "``#`",
+        "````"
     ],
     'A': [
         "`````",
@@ -154,13 +271,13 @@ const alphabet = {
         "``````"
     ],
     'N': [
-        "`````",
-        "`#``#",
-        "`##`#",
-        "`#`##",
-        "`#``#",
-        "`#``#",
-        "`````"
+        "``````",
+        "`#```#",
+        "`##``#",
+        "`#`#`#",
+        "`#``##",
+        "`#```#",
+        "``````"
     ],
     'O': [
         "`````",
@@ -275,11 +392,10 @@ const alphabet = {
 
 document.addEventListener("DOMContentLoaded", function() {
 	const input_text = document.querySelector('#input_text');
+	const input_chars_count = document.querySelector('#input_chars_count');
 	const foreground = document.querySelector('#foreground_text');
 	const background = document.querySelector('#background_text');
 	const output = document.querySelector('#output');
-	
-	const max_chars_per_row = 5;
 	
 	const process_letter = (ltr) => {
 		var letter = alphabet[ltr.toUpperCase()];
@@ -306,18 +422,30 @@ document.addEventListener("DOMContentLoaded", function() {
 	};
 	
 	const slice_text = (in_text, chars_per_slice) => {
-		// Split text into substrings of chars_per_slice characters
 		var text_slices = [];
-		var i = 0;
-		while (i < in_text.length) {
-			text_slices.push(in_text.slice(i, i + chars_per_slice));
-			i += chars_per_slice;
+		if(chars_per_slice === 0) {
+			text_slices.push(in_text);
+		}
+		else
+		{
+			// Split text into substrings of chars_per_slice characters
+			var i = 0;
+			while (i < in_text.length) {
+				text_slices.push(in_text.slice(i, i + chars_per_slice));
+				i += chars_per_slice;
+			}
 		}
 		
 		return text_slices;
 	};	
 		
     const generate = (in_txt) => {
+		
+		let max_chars_per_row = 0;
+		if (input_chars_count.value && /^\d+$/.test(input_chars_count.value)) {
+			max_chars_per_row = parseInt(input_chars_count.value);
+		}
+		
 		var text_slices = slice_text(in_txt, max_chars_per_row);
 		
         var output_text_array = [];
@@ -356,6 +484,7 @@ document.addEventListener("DOMContentLoaded", function() {
     };
 
     input_text.addEventListener('input', replace);
+	input_chars_count.addEventListener('input', replace);
     foreground.addEventListener('input', replace);
     background.addEventListener('input', replace);
 
